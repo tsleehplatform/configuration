@@ -5,13 +5,13 @@
 
 {% set locust_venv_bin = locust_home + "/venvs/" + locust_service_name + "/bin" %}
 {% set executable = locust_venv_bin + '/locust' %}
-{% if LOCUST_MASTER %}
-{% set locust_extra_args = '--slave --master-host ' + LOCUST_MASTER %}
-{% else %}
-{% set locust_extra_args = '' %}
+{% if LOCUST_IS_MASTER %}
+{% set locust_extra_args = '--master' %}
+{% elif LOCUST_MASTER %}
+{% set locust_extra_args = '--slave --master-host=' + LOCUST_MASTER %}
 {% endif %}
 
-command={{ executable }} --host {{ LOCUST_TARGET_HOST }} {{ locust_extra_args }}
+command={{ executable }} --host {{ LOCUST_TARGET_HOST }} -f {{ locust_loadtest_dir }} {{ locust_extra_args }}
 user={{ common_web_user }}
 directory={{ locust_run_dir }}
 stdout_logfile={{ supervisor_log_dir }}/%(program_name)-stdout.log
