@@ -38,16 +38,8 @@
     cache_valid_time: 3600
   with_items: locust_debian_pkgs
 
-- name: Install application requirements
-  pip:
-    requirements: "{{ locust_requirements_base }}/{{ item }}"
-    virtualenv: "{{ locust_home }}/venvs/{{ locust_service_name }}"
-    state: present
-  become_user: "{{ locust_user }}"
-  with_items: "{{ locust_requirements }}"
-
-- name: Prepare test settings
-  command: "make settings_files/{{ LOCUST_LOADTEST_NAME }}.yml"
+- name: Prepare a specific test
+  shell: "source {{ locust_home }}/venvs/{{ locust_service_name }}/bin/activate && make {{ LOCUST_LOADTEST_NAME }}"
   args:
     chdir: "{{ locust_run_dir }}"
   become_user: "{{ locust_user }}"
