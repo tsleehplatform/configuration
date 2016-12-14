@@ -7,3 +7,12 @@ DISCOVERY_MEMCACHE: ['edx.devstack.memcached:11211']
 DISCOVERY_EXTRA_APPS: ['course_discovery.apps.edx_catalog_extensions']
 COMMON_MYSQL_MIGRATE_USER: '{{ DISCOVERY_MYSQL_USER }}'
 COMMON_MYSQL_MIGRATE_PASS: '{{ DISCOVERY_MYSQL_PASSWORD }}'
+DISCOVERY_ECOMMERCE_API_URL: 'https://edx.devstack.ecommerce:18130/api/v2/'
+
+# TODO Determine why this is not being set.
+EDXAPP_LMS_BASE: 'localhost:18000'
+EDXAPP_JWT_AUDIENCE: 'lms-key'
+DISCOVERY_LMS_ROOT_URL: 'http://edx.devstack.edxapp:18000'
+DISCOVERY_OAUTH_URL_ROOT: 'http://edx.devstack.edxapp:18000/oauth2'
+DISCOVERY_OIDC_LOGOUT_URL: 'http://localhost:18000/logout'
+DISCOVERY_JWT_AUDIENCE: 'lms-key'
